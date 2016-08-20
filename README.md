@@ -30,11 +30,11 @@ nodemon
 To view the Swagger UI interface:
 
 ```
-open http://localhost:10010/docs
+http://localhost:10010/docs
 ```
 To view the Swagger doc:
 
 ```
-open http://localhost:10010/api-docs
+http://localhost:10010/api-docs
 ```
 
