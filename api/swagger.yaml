@@ -1,0 +1,88 @@
+---
+swagger: "2.0"
+info:
+  description: "From cloud to everyone"
+  version: "1.0.0"
+  title: "Cloud - RESTful APIs"
+  contact:
+    name: "Andrea Mola"
+    url: "none.com"
+    email: "andrea1.mola@mail.polimi.it"
+host: "localhost:10010"
+basePath: "/"
+schemes:
+- "http"
+- "https"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /sensors:
+    get:
+      tags:
+      - "Sensors"
+      summary: "Sensors list"
+      description: "Return all the available sensors"
+      operationId: "getSensors"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/SensorsResponse"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Sensors"
+    x-swagger-router-controller: "sensors"
+  /sensors/{type}:
+    get:
+      tags:
+      - "Sensors"
+      summary: "Sensor list by type"
+      description: "Return all the available sensors for selected type"
+      operationId: "getSensorsByType"
+      parameters:
+      - name: "type"
+        in: "path"
+        description: "The type of sensor"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/SensorsResponse"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Sensors"
+  /swagger:
+    x-swagger-pipe: "swagger_raw"
+definitions:
+  SensorResponse:
+    required:
+    - "sensor_id"
+    properties:
+      sensor_id:
+        type: "string"
+        description: "Serial's sensor, it must be unique"
+      sensor_type:
+        type: "string"
+        description: "Type of sensor, i.e. temperature"
+      sensor_status:
+        type: "string"
+        description: "Status of the sensor, i.e. online/offline"
+  SensorsResponse:
+    type: "array"
+    items:
+      $ref: "#/definitions/SensorResponse"
+  ErrorResponse:
+    required:
+    - "message"
+    properties:
+      message:
+        type: "string"
